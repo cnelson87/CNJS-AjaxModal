@@ -1,6 +1,6 @@
 {
 	"name": "CNJS-AjaxModal",
-	"description": "ModalWindow widget and/or browserify module",
+	"description": "Subclass of ModalWindow retrieves &amp; injects Ajax content",
 	"version": "0.1.0",
 	"main": [
 		"assets/AjaxModal.js"
@@ -15,9 +15,7 @@
 	"dependencies": {
 		"jquery": "~2.1.1",
 		"jquery.easing": "git://github.com/AndrewDryga/jQuery.Easing.git",
-		"Class.js": "~1.0.0",
-		"CNJS-LoaderSpinner": "",
-		"CNJS-ModalWindow": ""
+		"Class.js": "~1.0.0"
 	},
 	"private": false
 }
