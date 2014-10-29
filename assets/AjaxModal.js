@@ -11,7 +11,7 @@
 
 	DEPENDENCIES:
 		- jQuery 1.10+
-		- jQuery.easing
+		- greensock
 		- Class.js
 		- LoaderSpinner.js
 		- ModalWindow.js
