@@ -3,11 +3,13 @@
 
 	DESCRIPTION: Subclass of ModalWindow retrieves &amp; injects Ajax content
 
-	USAGE: var myAjaxModal = new ModalWindow('Elements', 'Options')
+	VERSION: 0.1.0
+
+	USAGE: var myAjaxModal = new AjaxModal('Elements', 'Options')
 		@param {jQuery Object}
 		@param {Object}
 
-	AUTHORS: CN
+	AUTHOR: CN
 
 	DEPENDENCIES:
 		- jQuery 1.10+
@@ -95,7 +97,6 @@ var AjaxModal = ModalWindow.extend({
 	}
 
 });
-
 
 //uncomment to use as a browserify module
 //module.exports = AjaxModal;
