@@ -18,5 +18,6 @@
 		"Class.js": "~1.0.0",
 		"CNJS-LoaderSpinner": "",
 		"CNJS-ModalWindow": ""
-	}
+	},
+	"ignore": []
 }
