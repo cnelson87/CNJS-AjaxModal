@@ -3,7 +3,7 @@
 
 	DESCRIPTION: Subclass of ModalWindow retrieves &amp; injects Ajax content
 
-	VERSION: 0.1.0
+	VERSION: 0.2.0
 
 	USAGE: var myAjaxModal = new AjaxModal('Elements', 'Options')
 		@param {jQuery Object}
@@ -12,8 +12,7 @@
 	AUTHOR: CN
 
 	DEPENDENCIES:
-		- jQuery 1.10+
-		- greensock
+		- jQuery 2.1.4+
 		- Class.js
 		- LoaderSpinner.js
 		- ModalWindow.js
@@ -75,14 +74,12 @@ var AjaxModal = ModalWindow.extend({
 
 			self.ajaxLoader.removeLoader();
 			self.setContent();
-			self.setPosition();
 
-		}).fail(function() {
+		}).fail(function(response) {
 			//console.log(response);
 			self.contentHTML = '';
 			self.ajaxLoader.removeLoader();
 			self.$elContent.html(self.options.ajaxErrorMsg);
-			self.setPosition();
 		});
 
 	},
