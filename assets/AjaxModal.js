@@ -19,6 +19,10 @@
 
 */
 
+//uncomment to use as a browserify module
+// var LoaderSpinner		= require('./LoaderSpinner');
+// var ModalWindow			= require('./ModalWindow');
+
 var AjaxModal = ModalWindow.extend({
 	init: function($triggers, objOptions) {
 
@@ -41,7 +45,7 @@ var AjaxModal = ModalWindow.extend({
 
 	initDOM: function() {
 		this._super();
-		this.ajaxLoader = new LoaderSpinner(this.$elContent);
+		this.ajaxLoader = new LoaderSpinner(this.$elModal);
 	},
 
 
@@ -72,8 +76,11 @@ var AjaxModal = ModalWindow.extend({
 				self.contentHTML = response;
 			}
 
-			self.ajaxLoader.removeLoader();
-			self.setContent();
+			// add delay to showcase loader-spinner
+			setTimeout(function() {
+				self.ajaxLoader.removeLoader();
+				self.setContent();
+			}, 400);
 
 		}).fail(function(response) {
 			//console.log(response);
