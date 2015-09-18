@@ -1,13 +1,10 @@
 {
 	"name": "CNJS-AjaxModal",
 	"description": "Subclass of ModalWindow retrieves &amp; injects Ajax content",
-	"version": "0.2.0",
+	"version": "0.2.1",
 	"main": [
 		"assets/AjaxModal.js",
 		"assets/AjaxModal.css"
-	],
-	"authors": [
-		"Chris Nelson <cnelson87@gmail.com>"
 	],
 	"repository": {
 		"type": "git",
@@ -19,5 +16,7 @@
 		"CNJS-LoaderSpinner": "",
 		"CNJS-ModalWindow": ""
 	},
-	"ignore": []
+	"ignore": [],
+	"license": "MIT",
+	"author": "Chris Nelson <cnelson87@gmail.com>"
 }
