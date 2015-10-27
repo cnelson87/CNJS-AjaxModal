@@ -1,9 +1,9 @@
 /*
 	TITLE: AjaxModal
 
-	DESCRIPTION: Subclass of ModalWindow retrieves &amp; injects Ajax content
+	DESCRIPTION: Subclass of ModalWindow retrieves & injects Ajax content
 
-	VERSION: 0.2.0
+	VERSION: 0.2.2
 
 	USAGE: var myAjaxModal = new AjaxModal('Elements', 'Options')
 		@param {jQuery Object}
@@ -14,21 +14,21 @@
 	DEPENDENCIES:
 		- jquery 2.1x+
 		- Class.js
-		- LoaderSpinner.js
 		- ModalWindow.js
+		- LoaderSpinner.js
 
 */
 
 //uncomment to use as a browserify module
-// var LoaderSpinner		= require('./LoaderSpinner');
 // var ModalWindow			= require('./ModalWindow');
+// var LoaderSpinner		= require('./LoaderSpinner');
 
 var AjaxModal = ModalWindow.extend({
 	init: function($triggers, objOptions) {
 
 		this.options = $.extend({
 			ajaxErrorMsg: '<div class="errormessage"><p>Sorry. Ajax request failed.</p></div>',
-			customEventPrfx: 'CNJS:AjaxModal'
+			customEventName: 'CNJS:AjaxModal'
 		}, objOptions || {});
 
 		// setup & properties
@@ -45,7 +45,7 @@ var AjaxModal = ModalWindow.extend({
 
 	initDOM: function() {
 		this._super();
-		this.ajaxLoader = new LoaderSpinner(this.$elModal);
+		this.ajaxLoader = new LoaderSpinner(this.$modal);
 	},
 
 
@@ -55,44 +55,46 @@ var AjaxModal = ModalWindow.extend({
 
 	getContent: function() {
 		var self = this;
-		var ajaxUrl = this.$elActiveTrigger.data('ajaxurl') || this.$elActiveTrigger.attr('href');
+		var ajaxUrl = this.$activeTrigger.data('ajaxurl') || this.$activeTrigger.attr('href');
 		var targetID = ajaxUrl.split('#')[1] || false;
 		var targetEl;
 
 		this.ajaxLoader.addLoader();
 
-		$.when(this.getAjaxContent(ajaxUrl, 'html')).done(function(response) {
-			//console.log(response);
+		$.when(this.ajaxGET(ajaxUrl, 'html'))
+			.done(function(response) {
+				//console.log(response);
 
-			if (targetID) {
-				targetEl = $(response).find('#' + targetID);
-				if (targetEl.length) {
-					self.contentHTML = $(response).find('#' + targetID).html();
+				if (targetID) {
+					targetEl = $(response).find('#' + targetID);
+					if (targetEl.length) {
+						self.contentHTML = $(response).find('#' + targetID).html();
+					} else {
+						self.contentHTML = $(response).html();
+					}
+
 				} else {
-					self.contentHTML = $(response).html();
+					self.contentHTML = response;
 				}
-				
-			} else {
-				self.contentHTML = response;
-			}
 
-			// add delay to showcase loader-spinner
-			setTimeout(function() {
+				// add delay to showcase loader-spinner
+				setTimeout(function() {
+					self.ajaxLoader.removeLoader();
+					self.setContent();
+				}, 400);
+
+			})
+			.fail(function(response) {
+				//console.log(response);
+				self.contentHTML = '';
 				self.ajaxLoader.removeLoader();
-				self.setContent();
-			}, 400);
-
-		}).fail(function(response) {
-			//console.log(response);
-			self.contentHTML = '';
-			self.ajaxLoader.removeLoader();
-			self.$elContent.html(self.options.ajaxErrorMsg);
-		});
+				self.$content.html(self.options.ajaxErrorMsg);
+			});
 
 	},
 
 	// returns an Ajax GET request using deferred, url is required, dataType is optional
-	getAjaxContent: function(url, dataType) {
+	ajaxGET: function(url, dataType) {
 		return $.ajax({
 			type: 'GET',
 			url: url,
