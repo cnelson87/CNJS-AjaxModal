@@ -1,7 +1,7 @@
 {
 	"name": "CNJS-AjaxModal",
 	"description": "Subclass of ModalWindow retrieves & injects Ajax content",
-	"version": "0.2.2",
+	"version": "0.2.3",
 	"main": [
 		"assets/AjaxModal.js",
 		"assets/AjaxModal.css"
